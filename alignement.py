@@ -1,4 +1,34 @@
+# -*- coding: utf-8 -*-
+""" Algorithm of brutal force alignment.
+
+In order to find an optimal alignment between two sequences we define a score system: we determine a score when two caracters are identical, another when they are not and another when a caracter is aligned with a gap.
+The final score of the aligment is the sum of all the scores.
+The optimal alignment is the one that has the higher score of all the possible alignments. 
+
+"""
+
+
+import doctest
+
 def enumerate_all_possibles_alignements (seq1, seq2, reward_match, cost_mismatch, cost_gap):
+	"""Function to find all the possible alignements between two sequences.
+	
+
+	Args:
+		seq1 (str): The first sequence to compare.
+		seq2 (str): The second sequence to compare.
+		reward_match (int) : Value given when there is a match between the two sequences.
+		cost_mismatch (int) : Value given when there is a mismatch between the two sequences.
+		cost_gap (int) : Value given when there is a gap in one of the sequences.
+
+	Returns:
+		final_list : A list containing all the possible alignments of the two sequences and their score.
+	
+	Example:
+	>>> enumerate_all_possibles_alignements("AAC","AG",1,-1,-1)
+	[['--AAC', 'AG---', -5], ['-A-AC', 'A-G--', -5], ['-AA-C', 'A--G-', -5], ['-AAC-', 'A---G', -5], ['-AAC', 'A--G', -4], ['-AAC', 'A-G-', -4], ['-AAC', 'AG--', -4], ['A--AC', '-AG--', -5], ['A-A-C', '-A-G-', -5], ['A-AC-', '-A--G', -5], ['A-AC', '-A-G', -4], ['A-AC', '-AG-', -4], ['AA--C', '--AG-', -5], ['AA-C-', '--A-G', -5], ['AA-C', '--AG', -4], ['AAC--', '---AG', -5], ['AAC-', '--AG', -4], ['AA-C', '-AG-', -2], ['AAC-', '-A-G', -2], ['AAC', '-AG', -1], ['A-AC', 'AG--', -2], ['AA-C', 'A-G-', -2], ['AAC-', 'A--G', -2], ['AAC', 'A-G', -1], ['AAC', 'AG-', -1]]
+
+	"""
 	
 	if seq1[0] == seq2[0]:
 		n=reward_match
@@ -59,30 +89,48 @@ def enumerate_all_possibles_alignements (seq1, seq2, reward_match, cost_mismatch
 			fils2=(2,ch1+seq1[pos1],ch2+"-",pos1+1,pos2,score+cost_gap)
 			liste_ali.append(fils2)
 	
+	
+	index=[1,2,5]
+	final_list =[]
+	for i in liste_att:
+		ali=[]
+		for j in index:
+			ali.append(i[j])
+		final_list.append(ali)
 			
-	return (liste_att)
+	return (final_list)
 		
 
 def ali_optimaux(liste_att):
+	"""Function to find the optimal alignment between two sequences.
+
+
+	Args:
+		liste_att (list): List containing all the possible alignments of two sequences with their score.
+		
+
+	Returns:
+		liste_opti : A list containing only the alignments with the higher score.
+	
+	Example:
+	>>> ali_optimaux(enumerate_all_possibles_alignements("AAC","AG",1,-1,-1))
+	[['AAC', 'AG-', -1], ['AAC', 'A-G', -1], ['AAC', '-AG', -1]]
+
+	"""
 	#permet de trouver les alignements optimaux		
-	liste_att=sorted(liste_att, key=lambda liste_att: liste_att[5])
+	liste_att=sorted(liste_att, key=lambda liste_att: liste_att[2])
 	i=1
 	p=-2
 	liste_opti=[liste_att[-1]]
 	while i>0:
-		if liste_att[-1][5] == liste_att[p][5]:
+		if liste_att[-1][2] == liste_att[p][2]:
 			liste_opti.append(liste_att[p])
 			p=p-1
 		else:
 			i=-1
 	return liste_opti
 		
-print(enumerate_all_possibles_alignements("AAC","AG",1,-1,-1))
-print("Il y a", len(enumerate_all_possibles_alignements("AAC","AG",1,-1,-1)), "resultats possibles")
-print("Les alignements optimaux sont les suivants:", ali_optimaux(enumerate_all_possibles_alignements("AAC","AG",1,-1,-1)))
 
-
-#print(enumerate_all_possibles_alignements("AGAC","ATTG",1,-1,-1))
-#print("Il y a", len(enumerate_all_possibles_alignements("AGAC","ATTG",1,-1,-1)), "resultats possibles")
+doctest.testmod(verbose =True)
 
 
