@@ -24,9 +24,9 @@ def enumerate_all_possibles_alignements (seq1, seq2, reward_match, cost_mismatch
 	Returns:
 		final_list : A list containing all the possible alignments of the two sequences and their score.
 	
-	Example:
-	>>> enumerate_all_possibles_alignements("AAC","AG",1,-1,-1)
-	[['--AAC', 'AG---', -5], ['-A-AC', 'A-G--', -5], ['-AA-C', 'A--G-', -5], ['-AAC-', 'A---G', -5], ['-AAC', 'A--G', -4], ['-AAC', 'A-G-', -4], ['-AAC', 'AG--', -4], ['A--AC', '-AG--', -5], ['A-A-C', '-A-G-', -5], ['A-AC-', '-A--G', -5], ['A-AC', '-A-G', -4], ['A-AC', '-AG-', -4], ['AA--C', '--AG-', -5], ['AA-C-', '--A-G', -5], ['AA-C', '--AG', -4], ['AAC--', '---AG', -5], ['AAC-', '--AG', -4], ['AA-C', '-AG-', -2], ['AAC-', '-A-G', -2], ['AAC', '-AG', -1], ['A-AC', 'AG--', -2], ['AA-C', 'A-G-', -2], ['AAC-', 'A--G', -2], ['AAC', 'A-G', -1], ['AAC', 'AG-', -1]]
+	Examples:
+	  >>> enumerate_all_possibles_alignements("AAC","AG",1,-1,-1)
+	  [['--AAC', 'AG---', -5], ['-A-AC', 'A-G--', -5], ['-AA-C', 'A--G-', -5], ['-AAC-', 'A---G', -5], ['-AAC', 'A--G', -4], ['-AAC', 'A-G-', -4], ['-AAC', 'AG--', -4], ['A--AC', '-AG--', -5], ['A-A-C', '-A-G-', -5], ['A-AC-', '-A--G', -5], ['A-AC', '-A-G', -4], ['A-AC', '-AG-', -4], ['AA--C', '--AG-', -5], ['AA-C-', '--A-G', -5], ['AA-C', '--AG', -4], ['AAC--', '---AG', -5], ['AAC-', '--AG', -4], ['AA-C', '-AG-', -2], ['AAC-', '-A-G', -2], ['AAC', '-AG', -1], ['A-AC', 'AG--', -2], ['AA-C', 'A-G-', -2], ['AAC-', 'A--G', -2], ['AAC', 'A-G', -1], ['AAC', 'AG-', -1]]
 
 	"""
 	
@@ -112,9 +112,9 @@ def ali_optimaux(liste_att):
 	Returns:
 		liste_opti : A list containing only the alignments with the higher score.
 	
-	Example:
-	>>> ali_optimaux(enumerate_all_possibles_alignements("AAC","AG",1,-1,-1))
-	[['AAC', 'AG-', -1], ['AAC', 'A-G', -1], ['AAC', '-AG', -1]]
+	Examples:
+	  >>> ali_optimaux(enumerate_all_possibles_alignements("AAC","AG",1,-1,-1))
+	  [['AAC', 'AG-', -1], ['AAC', 'A-G', -1], ['AAC', '-AG', -1]]
 
 	"""
 	#permet de trouver les alignements optimaux		

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>alignement module &#8212; Optimal alignement 0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -23,16 +23,21 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="search" title="Search" href="search.html" /> 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Optimal alignement 0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -61,9 +66,11 @@ The optimal alignment is the one that has the higher score of all the possible a
 </tr>
 </tbody>
 </table>
-<p>Example:
-&gt;&gt;&gt; ali_optimaux(enumerate_all_possibles_alignements(“AAC”,”AG”,1,-1,-1))
-[[‘AAC’, ‘AG-‘, -1], [‘AAC’, ‘A-G’, -1], [‘AAC’, ‘-AG’, -1]]</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ali_optimaux</span><span class="p">(</span><span class="n">enumerate_all_possibles_alignements</span><span class="p">(</span><span class="s2">&quot;AAC&quot;</span><span class="p">,</span><span class="s2">&quot;AG&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="go">[[&#39;AAC&#39;, &#39;AG-&#39;, -1], [&#39;AAC&#39;, &#39;A-G&#39;, -1], [&#39;AAC&#39;, &#39;-AG&#39;, -1]]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -91,9 +98,11 @@ The optimal alignment is the one that has the higher score of all the possible a
 </tr>
 </tbody>
 </table>
-<p>Example:
-&gt;&gt;&gt; enumerate_all_possibles_alignements(“AAC”,”AG”,1,-1,-1)
-[[‘–AAC’, ‘AG—’, -5], [‘-A-AC’, ‘A-G–’, -5], [‘-AA-C’, ‘A–G-‘, -5], [‘-AAC-‘, ‘A—G’, -5], [‘-AAC’, ‘A–G’, -4], [‘-AAC’, ‘A-G-‘, -4], [‘-AAC’, ‘AG–’, -4], [‘A–AC’, ‘-AG–’, -5], [‘A-A-C’, ‘-A-G-‘, -5], [‘A-AC-‘, ‘-A–G’, -5], [‘A-AC’, ‘-A-G’, -4], [‘A-AC’, ‘-AG-‘, -4], [‘AA–C’, ‘–AG-‘, -5], [‘AA-C-‘, ‘–A-G’, -5], [‘AA-C’, ‘–AG’, -4], [‘AAC–’, ‘—AG’, -5], [‘AAC-‘, ‘–AG’, -4], [‘AA-C’, ‘-AG-‘, -2], [‘AAC-‘, ‘-A-G’, -2], [‘AAC’, ‘-AG’, -1], [‘A-AC’, ‘AG–’, -2], [‘AA-C’, ‘A-G-‘, -2], [‘AAC-‘, ‘A–G’, -2], [‘AAC’, ‘A-G’, -1], [‘AAC’, ‘AG-‘, -1]]</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enumerate_all_possibles_alignements</span><span class="p">(</span><span class="s2">&quot;AAC&quot;</span><span class="p">,</span><span class="s2">&quot;AG&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">[[&#39;--AAC&#39;, &#39;AG---&#39;, -5], [&#39;-A-AC&#39;, &#39;A-G--&#39;, -5], [&#39;-AA-C&#39;, &#39;A--G-&#39;, -5], [&#39;-AAC-&#39;, &#39;A---G&#39;, -5], [&#39;-AAC&#39;, &#39;A--G&#39;, -4], [&#39;-AAC&#39;, &#39;A-G-&#39;, -4], [&#39;-AAC&#39;, &#39;AG--&#39;, -4], [&#39;A--AC&#39;, &#39;-AG--&#39;, -5], [&#39;A-A-C&#39;, &#39;-A-G-&#39;, -5], [&#39;A-AC-&#39;, &#39;-A--G&#39;, -5], [&#39;A-AC&#39;, &#39;-A-G&#39;, -4], [&#39;A-AC&#39;, &#39;-AG-&#39;, -4], [&#39;AA--C&#39;, &#39;--AG-&#39;, -5], [&#39;AA-C-&#39;, &#39;--A-G&#39;, -5], [&#39;AA-C&#39;, &#39;--AG&#39;, -4], [&#39;AAC--&#39;, &#39;---AG&#39;, -5], [&#39;AAC-&#39;, &#39;--AG&#39;, -4], [&#39;AA-C&#39;, &#39;-AG-&#39;, -2], [&#39;AAC-&#39;, &#39;-A-G&#39;, -2], [&#39;AAC&#39;, &#39;-AG&#39;, -1], [&#39;A-AC&#39;, &#39;AG--&#39;, -2], [&#39;AA-C&#39;, &#39;A-G-&#39;, -2], [&#39;AAC-&#39;, &#39;A--G&#39;, -2], [&#39;AAC&#39;, &#39;A-G&#39;, -1], [&#39;AAC&#39;, &#39;AG-&#39;, -1]]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -103,13 +112,7 @@ The optimal alignment is the one that has the higher score of all the possible a
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
+        <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -124,20 +127,21 @@ The optimal alignment is the one that has the higher score of all the possible a
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2019, Cloe Mendoza, Marie Codet.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/alignement.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Optimal alignement 0 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Cloe Mendoza, Marie Codet.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
   </body>
 </html>
