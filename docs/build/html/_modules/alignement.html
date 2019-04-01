@@ -1,0 +1,221 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>alignement &#8212; Optimal alignement 0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for alignement</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot; Algorithm of brutal force alignment.</span>
+
+<span class="sd">In order to find an optimal alignment between two sequences we define a score system: we determine a score when two caracters are identical, another when they are not and another when a caracter is aligned with a gap.</span>
+<span class="sd">The final score of the aligment is the sum of all the scores.</span>
+<span class="sd">The optimal alignment is the one that has the higher score of all the possible alignments. </span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">doctest</span>
+
+<div class="viewcode-block" id="enumerate_all_possibles_alignements"><a class="viewcode-back" href="../alignement.html#alignement.enumerate_all_possibles_alignements">[docs]</a><span class="k">def</span> <span class="nf">enumerate_all_possibles_alignements</span> <span class="p">(</span><span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">,</span> <span class="n">reward_match</span><span class="p">,</span> <span class="n">cost_mismatch</span><span class="p">,</span> <span class="n">cost_gap</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;Function to find all the possible alignements between two sequences.</span>
+<span class="sd">	</span>
+
+<span class="sd">	Args:</span>
+<span class="sd">		seq1 (str): The first sequence to compare.</span>
+<span class="sd">		seq2 (str): The second sequence to compare.</span>
+<span class="sd">		reward_match (int) : Value given when there is a match between the two sequences.</span>
+<span class="sd">		cost_mismatch (int) : Value given when there is a mismatch between the two sequences.</span>
+<span class="sd">		cost_gap (int) : Value given when there is a gap in one of the sequences.</span>
+
+<span class="sd">	Returns:</span>
+<span class="sd">		final_list : A list containing all the possible alignments of the two sequences and their score.</span>
+<span class="sd">	</span>
+<span class="sd">	Example:</span>
+<span class="sd">	&gt;&gt;&gt; enumerate_all_possibles_alignements(&quot;AAC&quot;,&quot;AG&quot;,1,-1,-1)</span>
+<span class="sd">	[[&#39;--AAC&#39;, &#39;AG---&#39;, -5], [&#39;-A-AC&#39;, &#39;A-G--&#39;, -5], [&#39;-AA-C&#39;, &#39;A--G-&#39;, -5], [&#39;-AAC-&#39;, &#39;A---G&#39;, -5], [&#39;-AAC&#39;, &#39;A--G&#39;, -4], [&#39;-AAC&#39;, &#39;A-G-&#39;, -4], [&#39;-AAC&#39;, &#39;AG--&#39;, -4], [&#39;A--AC&#39;, &#39;-AG--&#39;, -5], [&#39;A-A-C&#39;, &#39;-A-G-&#39;, -5], [&#39;A-AC-&#39;, &#39;-A--G&#39;, -5], [&#39;A-AC&#39;, &#39;-A-G&#39;, -4], [&#39;A-AC&#39;, &#39;-AG-&#39;, -4], [&#39;AA--C&#39;, &#39;--AG-&#39;, -5], [&#39;AA-C-&#39;, &#39;--A-G&#39;, -5], [&#39;AA-C&#39;, &#39;--AG&#39;, -4], [&#39;AAC--&#39;, &#39;---AG&#39;, -5], [&#39;AAC-&#39;, &#39;--AG&#39;, -4], [&#39;AA-C&#39;, &#39;-AG-&#39;, -2], [&#39;AAC-&#39;, &#39;-A-G&#39;, -2], [&#39;AAC&#39;, &#39;-AG&#39;, -1], [&#39;A-AC&#39;, &#39;AG--&#39;, -2], [&#39;AA-C&#39;, &#39;A-G-&#39;, -2], [&#39;AAC-&#39;, &#39;A--G&#39;, -2], [&#39;AAC&#39;, &#39;A-G&#39;, -1], [&#39;AAC&#39;, &#39;AG-&#39;, -1]]</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+	<span class="k">if</span> <span class="n">seq1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+		<span class="n">n</span><span class="o">=</span><span class="n">reward_match</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">n</span><span class="o">=</span><span class="n">cost_mismatch</span>
+	
+	<span class="n">liste_ali</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="n">seq1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="n">seq1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">cost_gap</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">cost_gap</span><span class="p">)]</span>
+	<span class="n">noeud_courant</span><span class="o">=</span><span class="p">[]</span>
+	<span class="n">liste_att</span><span class="o">=</span><span class="p">[]</span>
+
+	
+		
+	<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">liste_ali</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+	
+		<span class="n">noeud_courant</span><span class="o">=</span><span class="n">liste_ali</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+		
+		
+		<span class="n">op</span><span class="o">=</span><span class="n">noeud_courant</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="n">ch1</span><span class="o">=</span><span class="n">noeud_courant</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+		<span class="n">ch2</span><span class="o">=</span><span class="n">noeud_courant</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+		<span class="n">pos1</span><span class="o">=</span><span class="n">noeud_courant</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+		<span class="n">pos2</span><span class="o">=</span><span class="n">noeud_courant</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+		<span class="n">score</span><span class="o">=</span><span class="n">noeud_courant</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+		
+		
+		<span class="k">if</span> <span class="n">pos1</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pos2</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">):</span>
+		<span class="c1">#on ne peut plus creer de fils, donc c&#39;est fini </span>
+			<span class="n">liste_att</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">noeud_courant</span><span class="p">)</span>
+		
+		
+		<span class="k">elif</span> <span class="n">pos1</span><span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pos2</span><span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">):</span>
+		<span class="c1">#on peut creer les trois fils car les trois options sont possibles</span>
+			<span class="k">if</span> <span class="n">seq1</span><span class="p">[</span><span class="n">pos1</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq2</span><span class="p">[</span><span class="n">pos2</span><span class="p">]:</span>
+				<span class="n">n</span><span class="o">=</span> <span class="n">score</span> <span class="o">+</span><span class="n">reward_match</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">n</span><span class="o">=</span> <span class="n">score</span> <span class="o">+</span><span class="n">cost_mismatch</span>
+		
+		
+			<span class="n">fils1</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ch1</span><span class="o">+</span><span class="n">seq1</span><span class="p">[</span><span class="n">pos1</span><span class="p">],</span><span class="n">ch2</span><span class="o">+</span><span class="n">seq2</span><span class="p">[</span><span class="n">pos2</span><span class="p">],</span><span class="n">pos1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">pos2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+			<span class="n">fils2</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">ch1</span><span class="o">+</span><span class="n">seq1</span><span class="p">[</span><span class="n">pos1</span><span class="p">],</span><span class="n">ch2</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">pos1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">pos2</span><span class="p">,</span><span class="n">score</span><span class="o">+</span><span class="n">cost_gap</span><span class="p">)</span>
+			<span class="n">fils3</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">ch1</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">ch2</span><span class="o">+</span><span class="n">seq2</span><span class="p">[</span><span class="n">pos2</span><span class="p">],</span><span class="n">pos1</span><span class="p">,</span><span class="n">pos2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">score</span><span class="o">+</span><span class="n">cost_gap</span><span class="p">)</span>
+		
+		
+			<span class="n">liste_ali</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fils1</span><span class="p">)</span>
+			<span class="n">liste_ali</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fils2</span><span class="p">)</span>
+			<span class="n">liste_ali</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fils3</span><span class="p">)</span>
+		
+		
+		<span class="k">elif</span> <span class="n">pos1</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pos2</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">):</span>
+		<span class="c1">#on ne peut creer que le fils 3</span>
+		
+			<span class="n">fils3</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">ch1</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">ch2</span><span class="o">+</span><span class="n">seq2</span><span class="p">[</span><span class="n">pos2</span><span class="p">],</span><span class="n">pos1</span><span class="p">,</span><span class="n">pos2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">score</span><span class="o">+</span><span class="n">cost_gap</span><span class="p">)</span>
+			<span class="n">liste_ali</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fils3</span><span class="p">)</span>
+			
+		<span class="k">elif</span> <span class="n">pos1</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pos2</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">):</span>
+		<span class="c1">#on ne peut creer que le fils 2</span>
+		
+			<span class="n">fils2</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">ch1</span><span class="o">+</span><span class="n">seq1</span><span class="p">[</span><span class="n">pos1</span><span class="p">],</span><span class="n">ch2</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">pos1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">pos2</span><span class="p">,</span><span class="n">score</span><span class="o">+</span><span class="n">cost_gap</span><span class="p">)</span>
+			<span class="n">liste_ali</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fils2</span><span class="p">)</span>
+	
+	
+	<span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+	<span class="n">final_list</span> <span class="o">=</span><span class="p">[]</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">liste_att</span><span class="p">:</span>
+		<span class="n">ali</span><span class="o">=</span><span class="p">[]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+			<span class="n">ali</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+		<span class="n">final_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ali</span><span class="p">)</span>
+			
+	<span class="k">return</span> <span class="p">(</span><span class="n">final_list</span><span class="p">)</span></div>
+		
+
+<div class="viewcode-block" id="ali_optimaux"><a class="viewcode-back" href="../alignement.html#alignement.ali_optimaux">[docs]</a><span class="k">def</span> <span class="nf">ali_optimaux</span><span class="p">(</span><span class="n">liste_att</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;Function to find the optimal alignment between two sequences.</span>
+
+
+<span class="sd">	Args:</span>
+<span class="sd">		liste_att (list): List containing all the possible alignments of two sequences with their score.</span>
+<span class="sd">		</span>
+
+<span class="sd">	Returns:</span>
+<span class="sd">		liste_opti : A list containing only the alignments with the higher score.</span>
+<span class="sd">	</span>
+<span class="sd">	Example:</span>
+<span class="sd">	&gt;&gt;&gt; ali_optimaux(enumerate_all_possibles_alignements(&quot;AAC&quot;,&quot;AG&quot;,1,-1,-1))</span>
+<span class="sd">	[[&#39;AAC&#39;, &#39;AG-&#39;, -1], [&#39;AAC&#39;, &#39;A-G&#39;, -1], [&#39;AAC&#39;, &#39;-AG&#39;, -1]]</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1">#permet de trouver les alignements optimaux		</span>
+	<span class="n">liste_att</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">liste_att</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">liste_att</span><span class="p">:</span> <span class="n">liste_att</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+	<span class="n">i</span><span class="o">=</span><span class="mi">1</span>
+	<span class="n">p</span><span class="o">=-</span><span class="mi">2</span>
+	<span class="n">liste_opti</span><span class="o">=</span><span class="p">[</span><span class="n">liste_att</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+	<span class="k">while</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">liste_att</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">liste_att</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="mi">2</span><span class="p">]:</span>
+			<span class="n">liste_opti</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste_att</span><span class="p">[</span><span class="n">p</span><span class="p">])</span>
+			<span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">i</span><span class="o">=-</span><span class="mi">1</span>
+	<span class="k">return</span> <span class="n">liste_opti</span></div>
+		
+
+<span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">verbose</span> <span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Cloe Mendoza, Marie Codet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

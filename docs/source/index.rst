@@ -11,6 +11,8 @@ Welcome to Optimal alignement's documentation!
    :caption: Contents:
    
    intro
+   alignment
+   module   
 
 
 

@@ -1,0 +1,143 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>alignement module &#8212; Optimal alignement 0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-alignement">
+<span id="alignement-module"></span><h1>alignement module<a class="headerlink" href="#module-alignement" title="Permalink to this headline">¶</a></h1>
+<p>Algorithm of brutal force alignment.</p>
+<p>In order to find an optimal alignment between two sequences we define a score system: we determine a score when two caracters are identical, another when they are not and another when a caracter is aligned with a gap.
+The final score of the aligment is the sum of all the scores.
+The optimal alignment is the one that has the higher score of all the possible alignments.</p>
+<dl class="function">
+<dt id="alignement.ali_optimaux">
+<code class="descclassname">alignement.</code><code class="descname">ali_optimaux</code><span class="sig-paren">(</span><em>liste_att</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/alignement.html#ali_optimaux"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#alignement.ali_optimaux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to find the optimal alignment between two sequences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>liste_att</strong> (<em>list</em>) – List containing all the possible alignments of two sequences with their score.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list containing only the alignments with the higher score.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">liste_opti</td>
+</tr>
+</tbody>
+</table>
+<p>Example:
+&gt;&gt;&gt; ali_optimaux(enumerate_all_possibles_alignements(“AAC”,”AG”,1,-1,-1))
+[[‘AAC’, ‘AG-‘, -1], [‘AAC’, ‘A-G’, -1], [‘AAC’, ‘-AG’, -1]]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="alignement.enumerate_all_possibles_alignements">
+<code class="descclassname">alignement.</code><code class="descname">enumerate_all_possibles_alignements</code><span class="sig-paren">(</span><em>seq1</em>, <em>seq2</em>, <em>reward_match</em>, <em>cost_mismatch</em>, <em>cost_gap</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/alignement.html#enumerate_all_possibles_alignements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#alignement.enumerate_all_possibles_alignements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to find all the possible alignements between two sequences.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq1</strong> (<em>str</em>) – The first sequence to compare.</li>
+<li><strong>seq2</strong> (<em>str</em>) – The second sequence to compare.</li>
+<li><strong>reward_match</strong> (<em>int</em>) – Value given when there is a match between the two sequences.</li>
+<li><strong>cost_mismatch</strong> (<em>int</em>) – Value given when there is a mismatch between the two sequences.</li>
+<li><strong>cost_gap</strong> (<em>int</em>) – Value given when there is a gap in one of the sequences.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list containing all the possible alignments of the two sequences and their score.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">final_list</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:
+&gt;&gt;&gt; enumerate_all_possibles_alignements(“AAC”,”AG”,1,-1,-1)
+[[‘–AAC’, ‘AG—’, -5], [‘-A-AC’, ‘A-G–’, -5], [‘-AA-C’, ‘A–G-‘, -5], [‘-AAC-‘, ‘A—G’, -5], [‘-AAC’, ‘A–G’, -4], [‘-AAC’, ‘A-G-‘, -4], [‘-AAC’, ‘AG–’, -4], [‘A–AC’, ‘-AG–’, -5], [‘A-A-C’, ‘-A-G-‘, -5], [‘A-AC-‘, ‘-A–G’, -5], [‘A-AC’, ‘-A-G’, -4], [‘A-AC’, ‘-AG-‘, -4], [‘AA–C’, ‘–AG-‘, -5], [‘AA-C-‘, ‘–A-G’, -5], [‘AA-C’, ‘–AG’, -4], [‘AAC–’, ‘—AG’, -5], [‘AAC-‘, ‘–AG’, -4], [‘AA-C’, ‘-AG-‘, -2], [‘AAC-‘, ‘-A-G’, -2], [‘AAC’, ‘-AG’, -1], [‘A-AC’, ‘AG–’, -2], [‘AA-C’, ‘A-G-‘, -2], [‘AAC-‘, ‘A–G’, -2], [‘AAC’, ‘A-G’, -1], [‘AAC’, ‘AG-‘, -1]]</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Cloe Mendoza, Marie Codet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/alignement.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
