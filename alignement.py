@@ -27,7 +27,7 @@ def enumerate_all_possibles_alignements (seq1, seq2, reward_match, cost_mismatch
 	Examples:
 	  >>> enumerate_all_possibles_alignements("AAC","AG",1,-1,-1)
 	  [['--AAC', 'AG---', -5], ['-A-AC', 'A-G--', -5], ['-AA-C', 'A--G-', -5], ['-AAC-', 'A---G', -5], ['-AAC', 'A--G', -4], ['-AAC', 'A-G-', -4], ['-AAC', 'AG--', -4], ['A--AC', '-AG--', -5], ['A-A-C', '-A-G-', -5], ['A-AC-', '-A--G', -5], ['A-AC', '-A-G', -4], ['A-AC', '-AG-', -4], ['AA--C', '--AG-', -5], ['AA-C-', '--A-G', -5], ['AA-C', '--AG', -4], ['AAC--', '---AG', -5], ['AAC-', '--AG', -4], ['AA-C', '-AG-', -2], ['AAC-', '-A-G', -2], ['AAC', '-AG', -1], ['A-AC', 'AG--', -2], ['AA-C', 'A-G-', -2], ['AAC-', 'A--G', -2], ['AAC', 'A-G', -1], ['AAC', 'AG-', -1]]
-
+	  
 	"""
 	
 	if seq1[0] == seq2[0]:
@@ -130,6 +130,18 @@ def ali_optimaux(liste_att):
 			i=-1
 	return liste_opti
 		
+		
+def example_math():
+  """Example of mathematical function in the docstring
+
+  .. math::
+     :nowrap:
+
+     \\begin{eqnarray}
+        y    & = & ax^2 + bx + c \\\\
+        f(x) & = & x^2 + 2xy + y^2
+     \\end{eqnarray}
+  """
 
 doctest.testmod(verbose =True)
 

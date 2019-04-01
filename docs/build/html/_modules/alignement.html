@@ -75,7 +75,7 @@
 <span class="sd">	Examples:</span>
 <span class="sd">	  &gt;&gt;&gt; enumerate_all_possibles_alignements(&quot;AAC&quot;,&quot;AG&quot;,1,-1,-1)</span>
 <span class="sd">	  [[&#39;--AAC&#39;, &#39;AG---&#39;, -5], [&#39;-A-AC&#39;, &#39;A-G--&#39;, -5], [&#39;-AA-C&#39;, &#39;A--G-&#39;, -5], [&#39;-AAC-&#39;, &#39;A---G&#39;, -5], [&#39;-AAC&#39;, &#39;A--G&#39;, -4], [&#39;-AAC&#39;, &#39;A-G-&#39;, -4], [&#39;-AAC&#39;, &#39;AG--&#39;, -4], [&#39;A--AC&#39;, &#39;-AG--&#39;, -5], [&#39;A-A-C&#39;, &#39;-A-G-&#39;, -5], [&#39;A-AC-&#39;, &#39;-A--G&#39;, -5], [&#39;A-AC&#39;, &#39;-A-G&#39;, -4], [&#39;A-AC&#39;, &#39;-AG-&#39;, -4], [&#39;AA--C&#39;, &#39;--AG-&#39;, -5], [&#39;AA-C-&#39;, &#39;--A-G&#39;, -5], [&#39;AA-C&#39;, &#39;--AG&#39;, -4], [&#39;AAC--&#39;, &#39;---AG&#39;, -5], [&#39;AAC-&#39;, &#39;--AG&#39;, -4], [&#39;AA-C&#39;, &#39;-AG-&#39;, -2], [&#39;AAC-&#39;, &#39;-A-G&#39;, -2], [&#39;AAC&#39;, &#39;-AG&#39;, -1], [&#39;A-AC&#39;, &#39;AG--&#39;, -2], [&#39;AA-C&#39;, &#39;A-G-&#39;, -2], [&#39;AAC-&#39;, &#39;A--G&#39;, -2], [&#39;AAC&#39;, &#39;A-G&#39;, -1], [&#39;AAC&#39;, &#39;AG-&#39;, -1]]</span>
-
+<span class="sd">	  </span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	
 	<span class="k">if</span> <span class="n">seq1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq2</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
@@ -178,6 +178,18 @@
 			<span class="n">i</span><span class="o">=-</span><span class="mi">1</span>
 	<span class="k">return</span> <span class="n">liste_opti</span></div>
 		
+		
+<div class="viewcode-block" id="example_math"><a class="viewcode-back" href="../alignement.html#alignement.example_math">[docs]</a><span class="k">def</span> <span class="nf">example_math</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot;Example of mathematical function in the docstring</span>
+
+<span class="sd">  .. math::</span>
+<span class="sd">     :nowrap:</span>
+
+<span class="sd">     \\begin{eqnarray}</span>
+<span class="sd">        y    &amp; = &amp; ax^2 + bx + c \\\\</span>
+<span class="sd">        f(x) &amp; = &amp; x^2 + 2xy + y^2</span>
+<span class="sd">     \\end{eqnarray}</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
 
 <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">verbose</span> <span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
