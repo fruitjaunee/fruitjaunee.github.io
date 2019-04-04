@@ -142,7 +142,7 @@ def example_math():
         f(x) & = & x^2 + 2xy + y^2
      \\end{eqnarray}
   """
-
-doctest.testmod(verbose =True)
+if __name__=='__main__':
+  doctest.testmod(verbose =True)
 
 
