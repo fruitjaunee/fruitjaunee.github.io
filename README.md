@@ -12,7 +12,7 @@ The user can enter 2 sequences that he wants to compare as well as the match sco
 If you want to install our package please enter the following line on your terminal: 
 
 ```
-pip install -i https://test.pypi.org/simple/ alignment-cloemendoza
+pip install -i https://test.pypi.org/simple/ alignement-cloemendoza
 ```
 
 ## Contributing
