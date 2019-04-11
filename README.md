@@ -9,9 +9,11 @@ The user can enter 2 sequences that he wants to compare as well as the match sco
 
 
 ## Installation
-If you want to install our package please enter the following line on your terminal:
-pip install -i https://test.pypi.org/simple/ alignment-cloemendoza
+If you want to install our package please enter the following line on your terminal: :shipit: :shipit: :shipit:
 
+```
+pip install -i https://test.pypi.org/simple/ alignment-cloemendoza
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
