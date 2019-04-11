@@ -4,8 +4,6 @@ In order to find an optimal alignment between two sequences we defined a score s
 The final score of the aligment is the sum of all the scores.
 The optimal alignment is the one that has the higher score of all the possible alignments. 
 
-![alt text](https://fr.wikipedia.org/wiki/Alignement_de_s%C3%A9quences#/media/File:Zinc-finger-seq-alignment2.png)
-
 
 The user can enter 2 sequences that he wants to compare as well as the match score, the missmatch score and the score gap that he desire.
 
