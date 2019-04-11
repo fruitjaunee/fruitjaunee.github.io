@@ -7,10 +7,17 @@ The optimal alignment is the one that has the higher score of all the possible a
 
 The user can enter 2 sequences that he wants to compare as well as the match score, the missmatch score and the score gap that he desire.
 
+
+## Installation
+If you want to install our package please enter the following line on your terminal:
+pip install -i https://test.pypi.org/simple/ alignment-cloemendoza
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
 
 
 ## TODO
