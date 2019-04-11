@@ -20,7 +20,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## Documentation
 
+To see the documentation please check the following link :
+
+https://fruitjaunee.github.io/
 
 ## TODO
 
