@@ -1,0 +1,8 @@
+README.md
+setup.py
+alignement_cloemendoza.egg-info/PKG-INFO
+alignement_cloemendoza.egg-info/SOURCES.txt
+alignement_cloemendoza.egg-info/dependency_links.txt
+alignement_cloemendoza.egg-info/top_level.txt
+alignment_projet/__init__.py
+alignment_projet/alignement.py
